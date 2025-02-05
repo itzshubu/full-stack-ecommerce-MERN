@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+ 
+}
+
+@layer base {
+  body ,html{
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar-track{
+    width: none;
+  }
+ 
+}
+
+
+@layer components {
+  .btn1 {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+  }
+  .btn2{
+     @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded
+  }
+  .menu-item{
+      @apply  relative flex items-center  gap-1 after:content-[""]  after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-[-8px] hover:text-blue-500 after:bg-blue-500 after:opacity-0 hover:after:opacity-100 hover:after:left-[0px] after:transition-all
+  }
+  .Active {
+    @apply  relative after:content-[""]  after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-[0] text-blue-500 after:bg-blue-500  after:opacity-100  after:transition-all
+  }
+  .cthLyc2{
+    @apply !fixed !bottom-0 !left-0
+  }
+  
+}
+
+@layer utilities {
+  .active{
+    background-color: #ff2525;
+  }
+  .mainColor{
+    @apply bg-blue-500
+  }
+   .textmainColor{
+    @apply text-blue-500
+  }
+  .icon {
+    @apply text-[30px] sm:text-[20px]
+  }
+
+}
+
+
+
+
