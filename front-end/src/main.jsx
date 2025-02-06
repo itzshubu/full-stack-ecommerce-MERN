@@ -27,7 +27,7 @@ import Searchcompo from "./components/Searchcompo.jsx"
 // 🔥 Secure Route Setup with Redux
 const AuthWrapper = () => {
   let { token } = useSelector((state) => state.MyAuth);
-token = true
+// token = true
   const routerr = createBrowserRouter([
     {
       path: "/",

@@ -23,7 +23,8 @@ const signup = () => {
       password: data.password,
       confirmpass: data.confirmpassword,
     };
-
+ 
+    console.log(newuser)
     await axios
       .post("http://localhost:3000/signup", newuser)
       .then((response) => {

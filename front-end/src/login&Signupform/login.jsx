@@ -19,16 +19,19 @@ const login = () => {
       password: data.password,
     };
     await axios
-      .post("/api/user/login", userdata)
+      .post("http://localhost:3000/login", userdata)
       .then((response) => {
         if (response.data) {
-          toast.success("user login succesfully");
+          // toast.success("user login succesfully");
         }
-        localStorage.setItem("ChatApp", JSON.stringify(response.data));
+        alert(response.data.message)
+        // localStorage.setItem("ChatApp", JSON.stringify(response.data));
       })
       .catch((error) => {
         if (error.response) {
-          toast.error("error :" + error.response.data.error);
+          // toast.error("error :" + error.response.data.error);
+          console.log(error)
+          alert(error.response.data.message)
         }
       });
   };
