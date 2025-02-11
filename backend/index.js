@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const jwt = require('jsonwebtoken');
 
 // local modules
 const Product = require("./models/products.model.js")
@@ -69,9 +70,15 @@ app.post('/login', async(req , res)=>{
             if(!matched){
                 res.status(400).json({message : "wrong credentials!!"})
             }else{
-                let token = 8347598437843
-                let user1 = {name :"shubham",cartdata : [{},{},{}]}
-                res.status(200).json({message :"you login success" ,token, user1})
+                let token = jwt.sign({userId :user[0]._id},"helloiamshubham",{
+                    expiresIn:"10d"
+                   })
+                console.log(token , typeof user , user[0])
+                 user = user[0]
+                //  console.log( "hello",user.toObject())
+                // delete user.password
+                // console.log("hiiuser" ,user)
+                res.status(200).json({message :"you login success" ,token, user})
             } 
         }
     } catch (error) {

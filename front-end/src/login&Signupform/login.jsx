@@ -2,7 +2,10 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
+import {useDispatch} from "react-redux"
+import { addAuth } from "../Store/Slices/Authslice";
+import { useNavigate } from "react-router-dom";
 
 const login = () => {
   const {
@@ -11,8 +14,11 @@ const login = () => {
     watch,
     formState: { errors, isSubmitting },
   } = useForm();
+  let Dispatch = useDispatch()
+  let Navigate = useNavigate()
 
   const Submit = async (data) => {
+    toast.success("user login succesfully");
     console.log(data);
     let userdata = {
       email: data.email,
@@ -22,14 +28,17 @@ const login = () => {
       .post("http://localhost:3000/login", userdata)
       .then((response) => {
         if (response.data) {
-          // toast.success("user login succesfully");
+          toast.success("user login succesfully");
+          console.log(response.data)
+          Dispatch(addAuth(response.data))
+          localStorage.setItem("ChatApp", JSON.stringify(response.data));
+          localStorage.setItem("token", JSON.stringify(response.data.token));
+          Navigate("/")
         }
-        alert(response.data.message)
-        // localStorage.setItem("ChatApp", JSON.stringify(response.data));
       })
       .catch((error) => {
         if (error.response) {
-          // toast.error("error :" + error.response.data.error);
+          toast.error("error :" + error.response.data.error);
           console.log(error)
           alert(error.response.data.message)
         }
@@ -38,6 +47,7 @@ const login = () => {
 
   return (
     <div className="flex h-screen justify-center items-center">
+      <Toaster />
       <form
         onSubmit={handleSubmit(Submit)}
         className="border-[2px] text-center  border-black p-2"
