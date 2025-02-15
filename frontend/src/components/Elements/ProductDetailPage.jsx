@@ -7,12 +7,13 @@ const ProductDetailPage = () => {
     return data.MyProducts;
   });
 
-  let { productId } = useParams();
+  let { id } = useParams();
 
   let product = products.filter((item) => {
-    return item.id == productId;
+    return item.productId == id;
   })[0];
 
+  console.log(product , id)
   return (
     <div>
       ProductDetailPage

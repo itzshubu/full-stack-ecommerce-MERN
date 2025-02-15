@@ -32,7 +32,7 @@ const Cart = () => {
                 value={item}
                 Dispatch={Dispatch}
                 index={index}
-                key={item.id}
+                key={item.productId}
               />
             );
           })}
@@ -86,11 +86,11 @@ export const CartItem = ({ value, Dispatch, index}) => {
   }
 
   function remove(item, index) {
-    Dispatch(removeByOne(item.id))
+    Dispatch(removeByOne(item.productId))
   
   }
   function dlt(item, index) {
-    Dispatch(deleteItem(item.id))
+    Dispatch(deleteItem(item.productId))
   }
   return (
     <div className="flex p-4 justify-between lg:pr-10 items-center">

@@ -9,9 +9,7 @@ const All = () => {
   return (
     <div className='flex my-5 justify-center flex-wrap gap-4'>
       {products.map((item)=>{
-         return  <NavLink to='/categories/all'>
-           <Producttemp item={item}/>
-         </NavLink> 
+         return  <Producttemp key={item.productId} item={item}/>
       })}
     </div>
   )

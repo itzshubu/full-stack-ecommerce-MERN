@@ -18,7 +18,7 @@ const producttemp = ({item}) => {
   let isfav = useSelector((data)=>{
     return data.MyFav.favproducts
   }).filter((item2)=>{
-    return item2.id == item.id
+    return item2.productId == item.productId
   }).length > 0 ? true : false
 
  console.log('producttemp....')
@@ -50,7 +50,7 @@ const producttemp = ({item}) => {
       <Toaster />
       <div className=" hover:transform hover:scale-105 dark:text-black dark:bg-blue-100 bg-white  flex flex-col justify-center items-center p-4 w-60 sm:w-56 border border-gray-300 rounded-lg  shadow-md hover:shadow-xl transition-all duration-200 ">
         <div className="text-xs flex justify-end w-56 sm:w-48 font-semibold text-gray-400">
-          id:{item.id}
+          id:{item.productId}
         </div>
 
         <div className="relative">
@@ -75,12 +75,11 @@ const producttemp = ({item}) => {
             {rating(item.rating)}
             {arr.map((item) => {
               if (item == 1) {
-                return <FaStar />;
+                return <FaStar key={item.productId} />;
               } else {
-                return <FaRegStar />;
+                return <FaRegStar key={item.productId} />;
               }
             })}
-
             <span className="px-1 font-semibold">{item.rating}</span>
           </div>
         </div>
@@ -99,13 +98,13 @@ const producttemp = ({item}) => {
             <div className="font-bold">{`$ ${item.price}`}</div>
           </div>
 
-          <NavLink key={item.id} onClick={()=>{Dispatch(addToCart(item));toast.success('item added to cart!')}} to={pathname}>
+          <NavLink key={item.productId} onClick={()=>{Dispatch(addToCart(item));toast.success('item added to cart!')}} to={pathname}>
             <div className="flex justify-center items-center text-2xl bg-blue-700 w-8 h-8 text-white rounded-md shadow-md hover:shadow-lg transition-shadow duration-200 ">
               <MdOutlineShoppingCart />
             </div>
           </NavLink>
           <div
-            onClick={() => deletewishlist(item.id)}
+            onClick={() => deletewishlist(item.productId)}
             className="flex justify-center items-center text-2xl bg-red-600 w-8 h-8 text-white rounded-md shadow-md hover:shadow-lg transition-shadow duration-200 "
           >
             <MdOutlineDeleteSweep />

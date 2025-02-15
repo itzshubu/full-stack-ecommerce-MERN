@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     favproducts: [{
-        "id": 1,
+        "productId": 1,
         "name": "Slim Fit Casual Shirt",
         "main_category": "Men's Wear",
         "subcategory": "Shirts",
@@ -24,10 +24,10 @@ export const FavSlice = createSlice({
             console.log("helli ")
             let index
             let match = state.favproducts.filter((obj, ind) => {
-                if (obj.id == action.payload.id) {
+                if (obj.productId == action.payload.productId) {
                     index = ind
                 }
-                return obj.id == action.payload.id
+                return obj.productId == action.payload.productId
             })[0]
             if(match){
                 state.favproducts.splice(index , 1)
