@@ -26,7 +26,7 @@ const signup = () => {
  
     console.log(newuser)
     await axios
-      .post("http://localhost:3000/signup", newuser)
+      .post("https://full-stack-ecommerce-mern.onrender.com/signup", newuser)
       .then((response) => {
         console.log(response.data);
         alert(response.data.message)

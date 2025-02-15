@@ -4,7 +4,7 @@ import { createSlice ,createAsyncThunk  } from '@reduxjs/toolkit'
 export const fetchProducts = createAsyncThunk(
       "",
     async () => {
-      const response = await fetch("http://localhost:3000/products");
+      const response = await fetch("https://full-stack-ecommerce-mern.onrender.com/products");
       return await response.json();
     }
   );

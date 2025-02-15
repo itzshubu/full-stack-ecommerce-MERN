@@ -25,7 +25,7 @@ const login = () => {
       password: data.password,
     };
     await axios
-      .post("http://localhost:3000/login", userdata)
+      .post("https://full-stack-ecommerce-mern.onrender.com/login", userdata)
       .then((response) => {
         if (response.data) {
           toast.success("user login succesfully");
