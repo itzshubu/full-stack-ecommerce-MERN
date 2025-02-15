@@ -46,7 +46,7 @@ const producttemp = ({item}) => {
 
   return (
     <div>
-      <NavLink to={`/product/${item.id}`}>
+      <NavLink to={`/product/${item.productId}`}>
       <Toaster />
       <div className=" hover:transform hover:scale-105 dark:text-black dark:bg-blue-100 bg-white  flex flex-col justify-center items-center p-4 w-60 sm:w-56 border border-gray-300 rounded-lg  shadow-md hover:shadow-xl transition-all duration-200 ">
         <div className="text-xs flex justify-end w-56 sm:w-48 font-semibold text-gray-400">

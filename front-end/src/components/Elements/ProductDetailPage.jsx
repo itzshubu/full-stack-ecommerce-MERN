@@ -7,10 +7,10 @@ const ProductDetailPage = () => {
     return data.MyProducts;
   });
 
-  let { id } = useParams();
+  let { productId } = useParams();
 
   let product = products.filter((item) => {
-    return item.id == id;
+    return item.id == productId;
   })[0];
 
   return (
@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
       <div>
         <div>
           <img src={product.image} alt="" />
-          <p>{product.id}</p>
+          <p>{product.productId}</p>
         </div>
       </div>
     </div>
