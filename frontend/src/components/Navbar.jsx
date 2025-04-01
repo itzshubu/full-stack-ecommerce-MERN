@@ -9,10 +9,16 @@ import { MdOutlineExplore } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { IoMdLogOut } from "react-icons/io";
 
 const Navbar = () => {
   let Navigate = useNavigate()
- let [input1 , setInput1]= useState('')
+  let [input1 , setInput1]= useState('')
+   
+  function logout(){
+    localStorage.clear()
+    window.location.reload()
+  }
 
   return (
     <>
@@ -30,6 +36,7 @@ const Navbar = () => {
           <Icons />
           </div>
           <Darkbtn />
+          <IoMdLogOut className="text-[30px] cursor-pointer" onClick={logout} />
         </div>
       </div>
       {/* input search for mobile */}

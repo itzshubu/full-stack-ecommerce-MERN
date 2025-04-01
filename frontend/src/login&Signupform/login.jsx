@@ -25,13 +25,13 @@ const login = () => {
       password: data.password,
     };
     await axios
-      .post("https://full-stack-ecommerce-mern.onrender.com/login", userdata)
+      .post(`${import.meta.env.VITE_API_URL}/login`, userdata)
       .then((response) => {
         if (response.data) {
           toast.success("user login succesfully");
           console.log(response.data)
           Dispatch(addAuth(response.data))
-          localStorage.setItem("ChatApp", JSON.stringify(response.data));
+          localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("token", JSON.stringify(response.data.token));
           Navigate("/")
         }

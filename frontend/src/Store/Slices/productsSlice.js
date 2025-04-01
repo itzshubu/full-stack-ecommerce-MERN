@@ -4,7 +4,7 @@ import { createSlice ,createAsyncThunk  } from '@reduxjs/toolkit'
 export const fetchProducts = createAsyncThunk(
       "",
     async () => {
-      const response = await fetch("https://full-stack-ecommerce-mern.onrender.com/products");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products`);
       return await response.json();
     }
   );

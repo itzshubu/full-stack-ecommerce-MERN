@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 // console.log(useAuth())
 const signup = () => {
+  const [email,setEmail] = useState("")
+  const [isOtpsend , setIsotpsend] = useState(false)
+  const [isOptsending , setisoptsending] = useState(false)
   const {
     register,
     handleSubmit,
@@ -14,9 +18,10 @@ const signup = () => {
   } = useForm();
 
   const password = watch("password");
+  const emaill = watch("email")
 
   const Submit = async (data) => {
-    // console.log(data);
+    console.log(data);
     let newuser = {
       fullname: data.username,
       email: data.email,
@@ -25,8 +30,9 @@ const signup = () => {
     };
  
     console.log(newuser)
+    return
     await axios
-      .post("https://full-stack-ecommerce-mern.onrender.com/signup", newuser)
+      .post(`${import.meta.env.VITE_API_URL}/signup`, newuser)
       .then((response) => {
         console.log(response.data);
         alert(response.data.message)
@@ -45,8 +51,44 @@ const signup = () => {
       });
   };
 
+  // function getemail(e){
+  //   console.log(e.target.value)
+  //       setEmail(e.target.value)
+  // }
+  // console.log(email)
+
+ async function reqtootp(){
+  console.log(emaill)
+  let h = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  if(!h.test(emaill) || !emaill){
+       toast.error("please enter valid email") 
+       alert("please enter valid email")
+       console.log("hsdjkf")      
+       return
+  }
+  
+  setisoptsending(true)
+    let response = await fetch("http://localhost:3000/send-otp",{
+      method:"POST",
+    headers : {
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify({email : emaill , hhhello : "uroiewui"})
+    })
+    let data = await response.json()
+    console.log(data)
+    if(response.ok){
+      setIsotpsend(true)
+       toast.success(data.message)
+    }else{
+      toast.error(data.message)
+    }
+    setisoptsending(false)
+  }
+
   return (
     <div className="flex h-screen justify-center items-center">
+      <Toaster />
       <form
         onSubmit={handleSubmit(Submit)}
         className="border-[2px] text-center  border-black p-2"
@@ -54,13 +96,13 @@ const signup = () => {
         <h2 className="font-bold text-[30px]">signup form</h2>
         <div className="p-2">
           <input
-            placeholder="Username"
-            {...register("username", {
+            placeholder="fullName"
+            {...register("fullName", {
               required: { value: true, message: "username cannot be empty" },
             })}
           />
         </div>
-        {errors.Username && (
+        {errors.fullName && (
           <p className="bg-red-600">{errors.Username.message}</p>
         )}
         <div className="p-2">
@@ -110,16 +152,30 @@ const signup = () => {
         {errors.confirmpassword && (
           <p className="bg-red-600">{errors.confirmpassword.message}</p>
         )}
+        {isOtpsend && <div className="p-2">
+          <input
+            placeholder="otp"
+            type="text"
+            {...register("otp", {
+              required: "Please enter your otp",
+            })}
+          />
+        </div>
+      }
+      {errors.otp && (
+        <p className="bg-red-600">{errors.otp.message}</p>
+      )}
 
         <p>
           Have an account ?{" "}
           <Link to="/login" className="text-blue-600 underline">login</Link>
         </p>
-        <input
+       {isOtpsend ? <input
           type="submit"
+          // disabled={isOptsending}
           disabled={isSubmitting}
           className="m-2 w-[80%] border-[1px] border-blue-700 bg-blue-700 hover:bg-white"
-        />
+        /> : <button type="button" disabled={isOptsending} className="m-2 w-[80%] border-[1px] border-blue-700 bg-blue-700 hover:bg-white" onClick={reqtootp}>{isOptsending?"otp sending....":'send otp'}</button>}
       </form>
     </div>
   );
