@@ -18,14 +18,10 @@ const login = () => {
   let Navigate = useNavigate()
 
   const Submit = async (data) => {
-    toast.success("user login succesfully");
     console.log(data);
-    let userdata = {
-      email: data.email,
-      password: data.password,
-    };
+    // return
     await axios
-      .post(`${import.meta.env.VITE_API_URL}/login`, userdata)
+      .post(`${import.meta.env.VITE_API_URL}/login`,data)
       .then((response) => {
         if (response.data) {
           toast.success("user login succesfully");

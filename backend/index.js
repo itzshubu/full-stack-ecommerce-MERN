@@ -91,8 +91,8 @@ app.post('/send-otp', async (req, res) => {
             subject: "Test Email from Nodemailer",
             text: `your otp is ${otp}`
         };
-        let otpp = await OTP.findOneAndUpdate({ email }, { email, otp }, { upsert: true, new: true})
-         console.log(otpp)   
+        let otpp = await OTP.findOneAndUpdate({ email }, { email, otp }, { upsert: true, new: true })
+        console.log(otpp)
         // otpp.save()
         await transporter.sendMail(mailOptions)
         res.send({ message: "otp send successfullyy..." })
@@ -103,14 +103,24 @@ app.post('/send-otp', async (req, res) => {
 })
 
 app.post('/signup', async (req, res) => {
-    const { fullName, email, password,otp } = req.body
-    let user = User.findOne({ email })
-    if (!user) {
+    const { fullName, email, password, otp } = req.body
+    let user = await User.findOne({ email })
+    console.log(user)
+    if (user) {
         res.status(400).json({ message: "user already register!" })
+        return
     }
-    let hashedpass = await bcrypt.hash(password, 10)
-    user = await new User({fullName, email, password: hashedpass })
-    user.save()
+    // let hashedpass = await bcrypt.hash(password, 10)
+
+    let otpobj = await OTP.findOne({ email })
+
+    if (!otpobj || otpobj.otp != otp) {
+        res.status(401).send({ message: "incorrect credentials !" })
+        return
+    }
+
+    const usernew = await new User({ fullName, email, password })
+    usernew.save()
 
     res.status(200).json({ message: "user sign in successfull..." })
 })
@@ -119,29 +129,22 @@ app.post('/login', async (req, res) => {
     try {
         let { email, password } = req.body
         console.log(email, password)
-        let user = await User.find({ email })
-        console.log("user", user)
-        if (!(user.length > 0)) {
-            res.status(400).json({ message: "please sign up first !" })
-        } else {
-            let matched = await bcrypt.compare(password, user[0].password)
-            console.log(matched)
-            if (!matched) {
-                res.status(400).json({ message: "wrong credentials!!" })
-            } else {
-                let token = jwt.sign({ userId: user[0]._id }, "helloiamshubham", {
-                    expiresIn: "10d"
-                })
-                console.log(token, typeof user, user[0])
-                user = user[0]
-                //  console.log( "hello",user.toObject())
-                // delete user.password
-                // console.log("hiiuser" ,user)
-                res.status(200).json({ message: "you login success", token, user })
-            }
+
+        let user = await User.findOne({email})
+        console.log(user)
+        if(!user){
+            res.status(404).send({message :"user not found!"})
+            return
         }
+        if(user.password != password){
+            res.status(401).send({message : "incorrect email or password!"})
+            return
+        }
+       let  token  = "hhfkshiowehjk.jkhsdjkfhisdfi.ksdfhsdifhuisdfhuih"
+
+        res.status(200).send({ message: "user login successfullyyy..." , token , user })
     } catch (error) {
-        res.status(500).json({ message: "internal server error" })
+        res.status(500).send({ message: "internal server error!" })
     }
 })
 

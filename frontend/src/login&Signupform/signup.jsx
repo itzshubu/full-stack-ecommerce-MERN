@@ -22,17 +22,11 @@ const signup = () => {
 
   const Submit = async (data) => {
     console.log(data);
-    let newuser = {
-      fullname: data.username,
-      email: data.email,
-      password: data.password,
-      confirmpass: data.confirmpassword,
-    };
- 
-    console.log(newuser)
-    return
+  
+    // console.log(newuser)
+    // return
     await axios
-      .post(`${import.meta.env.VITE_API_URL}/signup`, newuser)
+      .post(`${import.meta.env.VITE_API_URL}/signup`,data)
       .then((response) => {
         console.log(response.data);
         alert(response.data.message)
@@ -40,7 +34,6 @@ const signup = () => {
           toast.success("signup succesfully");
         }
         localStorage.setItem('ChatApp',JSON.stringify(response.data))
-      
       })
       .catch((error) => {
         if(error.response){
