@@ -24,11 +24,12 @@ const login = () => {
       .post(`${import.meta.env.VITE_API_URL}/login`,data)
       .then((response) => {
         if (response.data) {
-          toast.success("user login succesfully");
           console.log(response.data)
           Dispatch(addAuth(response.data))
-          localStorage.setItem("user", JSON.stringify(response.data.user));
-          localStorage.setItem("token", JSON.stringify(response.data.token));
+          localStorage.setItem("token", response.data.token)
+          localStorage.setItem("user", JSON.stringify(response.data.user))
+          toast.success("user login succesfully");
+          alert(response.data.message)
           Navigate("/")
         }
       })

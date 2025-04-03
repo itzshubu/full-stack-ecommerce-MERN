@@ -10,14 +10,23 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import {logout} from "../Store/Slices/Authslice"
 
 const Navbar = () => {
   let Navigate = useNavigate()
   let [input1 , setInput1]= useState('')
+  const Dispatch = useDispatch()
    
-  function logout(){
+  function logoutt(){
+    // window.location.reload()
     localStorage.clear()
-    window.location.reload()
+    console.log('helo')
+    Dispatch(logout())
+    setTimeout(() => {
+      Navigate('/')
+    }, 1000);
+
   }
 
   return (
@@ -36,7 +45,7 @@ const Navbar = () => {
           <Icons />
           </div>
           <Darkbtn />
-          <IoMdLogOut className="text-[30px] cursor-pointer" onClick={logout} />
+          <IoMdLogOut className="text-[30px] cursor-pointer" onClick={logoutt} />
         </div>
       </div>
       {/* input search for mobile */}

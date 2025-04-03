@@ -130,19 +130,21 @@ app.post('/login', async (req, res) => {
         let { email, password } = req.body
         console.log(email, password)
 
-        let user = await User.findOne({email})
+        let user = await User.findOne({ email })
         console.log(user)
-        if(!user){
-            res.status(404).send({message :"user not found!"})
+        if (!user) {
+            res.status(404).send({ message: "user not found!" })
             return
         }
-        if(user.password != password){
-            res.status(401).send({message : "incorrect email or password!"})
+        if (user.password != password) {
+            res.status(401).send({ message: "incorrect email or password!" })
             return
         }
-       let  token  = "hhfkshiowehjk.jkhsdjkfhisdfi.ksdfhsdifhuisdfhuih"
-
-        res.status(200).send({ message: "user login successfullyyy..." , token , user })
+        let newuser = JSON.parse(JSON.stringify(user))
+         delete newuser.password
+        let token = jwt.sign({id : user._id}, process.env.JWT_KEY, { expiresIn: '30d' });
+          console.log(token)
+        res.status(200).send({ message: "user login successfullyyy...", token,user : newuser })
     } catch (error) {
         res.status(500).send({ message: "internal server error!" })
     }
