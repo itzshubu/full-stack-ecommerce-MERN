@@ -12,15 +12,20 @@ const Product = require("./models/products.model.js")
 const User = require("./models/UserModel.js")
 const OTP = require("./models/otpmodel.js")
 
+// Routes
+const UserRoutes = require("./Routes/UserRoutes.js")
+
 const app = express()
 const port = 3000
 dotenv.config()
+
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // middlewares
 app.use(cors())
 app.use(express.json())
+
 
 // connecting to mongodb
 async function contomongo() {
@@ -36,6 +41,7 @@ async function contomongo() {
     }
 }
 contomongo()
+app.use('/user',UserRoutes)
 
 // for otp 
 
