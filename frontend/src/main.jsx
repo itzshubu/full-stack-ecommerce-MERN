@@ -21,6 +21,7 @@ import Cart from "./components/Elements/Cart.jsx";
 import Dynamicpage from "./components/Elements/ProductDetailPage.jsx";
 import Signup from "./login&Signupform/signup.jsx";
 import Login from "./login&Signupform/login.jsx";
+import Profilepage from "./components/Profilepage.jsx";
 import Searchcompo from "./components/Searchcompo.jsx"
 // import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
@@ -36,6 +37,7 @@ const AuthWrapper = () => {
         { path: "", element: <Home /> },
         { path: "explore", element: <Explore /> },
         { path: "product/:id", element: <Dynamicpage /> },
+        { path: "profile", element: <Profilepage /> },
         { path: "search/:searchtext", element: <Searchcompo /> },
         {
           path: "Categories",

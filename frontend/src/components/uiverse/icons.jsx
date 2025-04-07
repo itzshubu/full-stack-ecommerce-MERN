@@ -1,24 +1,47 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { Navigate, NavLink , useNavigate ,replace,useParams } from "react-router-dom";
+import {
+  Navigate,
+  NavLink,
+  useNavigate,
+  replace,
+  useParams,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Button = () => {
   const [show, isShow] = useState(false);
-  const [input1 , setInput1] = useState("")
-  let Navigate = useNavigate()
+  const [input1, setInput1] = useState("");
+  let Navigate = useNavigate();
   // console.log(show);
   let btnref = useRef();
   let iconref = useRef();
 
-   let cart = useSelector((data)=>{
-           return data.MyCart.cartProducts
-   })
-   console.log(cart)
+  let cart = useSelector((data) => {
+    return data.MyCart.cartProducts;
+  });
+  let {_id} = JSON.parse(localStorage.getItem("user"))
+console.log(_id)
+  useEffect(() => {
+    console.log(cart);
+    console.log("updated");
+    async function senddata() {
+      let response = await fetch(`http://localhost:3000/user/addtocart/${_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cart),
+      });
+      let data = await response.json();
+      console.log(data)
+    }
+    senddata();
+  }, [cart]);
 
-   let totalproducts = cart.reduce((old , value)=>{
-    return old+value.quentity
-   },0)
+  let totalproducts = cart.reduce((old, value) => {
+    return old + value.quentity;
+  }, 0);
 
   window.onclick = function (e) {
     if (!(e.target.parentNode == btnref.current)) {
@@ -27,8 +50,8 @@ const Button = () => {
       }
     }
   };
-  function onenter(){
-    Navigate(`/search/${input1}`)
+  function onenter() {
+    Navigate(`/search/${input1}`);
   }
 
   return (
@@ -61,8 +84,11 @@ const Button = () => {
               type="text"
               placeholder="Search"
               value={input1}
-              onChange={(e)=>setInput1(e.target.value)}
-              onKeyDown={(e)=>{console.log(e.key);e.key == "Enter"?onenter():"sdf"}}
+              onChange={(e) => setInput1(e.target.value)}
+              onKeyDown={(e) => {
+                console.log(e.key);
+                e.key == "Enter" ? onenter() : "sdf";
+              }}
               className={`transition-all duration-500 ${
                 show ? "sm:w-[200px] p-1" : "w-0"
               }  h-[27px] sm:h-auto bg-inherit outline-none  border-none`}
@@ -77,7 +103,7 @@ const Button = () => {
               height="1em"
               width="1em"
               xmlns="http://www.w3.org/2000/svg"
-              onClick={()=>Navigate(`/search/${input1}`)}
+              onClick={() => Navigate(`/search/${input1}`)}
             >
               <path
                 strokeLinecap="round"
@@ -106,22 +132,31 @@ const Button = () => {
             />
           </svg>
         </button>
-        <button className="button">
-          <svg
-            className="icon"
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth={0}
-            viewBox="0 0 24 24"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" />
-          </svg>
-        </button>
-        <NavLink to="cart"  className={({isActive})=>isActive?"text-white dark:text-black relative":"relative"}>
-          <p className="absolute left-[50%] top-[-2px] font-thin text-white h-[22px] rounded-full bg-blue-500 translate-x-[0%] h-[20px] w-[20px] bg-red-900 text-sm flex justify-center items-center ">{totalproducts}</p>
+        <NavLink to={"profile"}>
+          <button className="button">
+            <svg
+              className="icon"
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth={0}
+              viewBox="0 0 24 24"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" />
+            </svg>
+          </button>
+        </NavLink>
+        <NavLink
+          to="cart"
+          className={({ isActive }) =>
+            isActive ? "text-white dark:text-black relative" : "relative"
+          }
+        >
+          <p className="absolute left-[50%] top-[-2px] font-thin text-white h-[22px] rounded-full bg-blue-500 translate-x-[0%] h-[20px] w-[20px] bg-red-900 text-sm flex justify-center items-center ">
+            {totalproducts}
+          </p>
           <button className="button">
             <svg
               className="icon"
