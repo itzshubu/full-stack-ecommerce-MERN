@@ -23,9 +23,9 @@ const mongoose = require("mongoose")
         let cartItems = req.body
         let {id} = req.params
         const formattedcart = cartItems.map((item)=>{
-          return {_id : new mongoose.Types.ObjectId(item._id),
+          return {
             quentity :item.quentity,
-            producttId : item.productId 
+            producttId : item._id
           }
         })
         console.log(formattedcart)

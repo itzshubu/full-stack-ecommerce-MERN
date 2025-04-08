@@ -34,9 +34,10 @@ const UserSchema = new mongoose.Schema({
       postalCode: { type: String, required: true }
     }
   ],
-  cart: [
+  cart: [ 
     {
-      producttId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      _id : false,
+      producttId: { type: mongoose.Schema.Types.ObjectId, ref: "ProductAll" },
       quentity: { type: Number, required: true, min: 1 }
     }
   ],

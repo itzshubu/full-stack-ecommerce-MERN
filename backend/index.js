@@ -12,6 +12,8 @@ const Product = require("./models/products.model.js")
 const User = require("./models/UserModel.js")
 const OTP = require("./models/otpmodel.js")
 
+mongoose.set('strictPopulate' ,false)
+
 // Routes
 const UserRoutes = require("./Routes/UserRoutes.js")
 
@@ -60,7 +62,7 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
-    },
+    }, 
 });
 
 
@@ -136,10 +138,10 @@ app.post('/login', async (req, res) => {
         let { email, password } = req.body
         console.log(email, password)
 
-        let user = await User.findOne({ email })
-        console.log(user)
-        if (!user) {
-            res.status(404).send({ message: "user not found!" })
+        let user = await User.findOne({ email }).populate('cart.producttId')
+        console.log(user) 
+        if (!user) { 
+            res.status(404).send({ message: "user not found!"})
             return
         }
         if (user.password != password) {
@@ -152,6 +154,7 @@ app.post('/login', async (req, res) => {
           console.log(token)
         res.status(200).send({ message: "user login successfullyyy...", token,user : newuser })
     } catch (error) {
+        console.log(error)
         res.status(500).send({ message: "internal server error!" })
     }
 })

@@ -11,7 +11,7 @@ export const CartSlice = createSlice({
         if (item.productId == action.payload) {
           return { ...item, quentity: item.quentity - 1 }
         } else {
-          return item
+          return item 
         }
       })
     },
