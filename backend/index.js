@@ -11,7 +11,6 @@ const nodemailer = require("nodemailer");
 const Product = require("./models/products.model.js")
 const User = require("./models/UserModel.js")
 const OTP = require("./models/otpmodel.js")
-
 mongoose.set('strictPopulate' ,false)
 
 // Routes
