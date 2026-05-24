@@ -7,12 +7,10 @@ import Footer from "./components/Footer";
 
 function App() {
   const [count, setCount] = useState(0);
-  console.log(import.meta.env.VITE_API_URL)
-
   return (
     <>
-      <div className="overflow-y-hidden max-w-screen-2xl m-auto duration-500 dark:bg-black bg-white text-black dark:text-white">
-        <Headroom>
+      <div className="max-w-screen-2xl mx-auto w-full duration-500 dark:bg-gray-950 bg-gray-50 text-black dark:text-white">
+        <Headroom style={{ zIndex: 200 }} className="!overflow-visible">
           <Navbar />
         </Headroom>
         <div className="sm:hidden cthLyc2 z-[100]">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { apiUrl } from "../config/api.js";
 import { Link } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -26,7 +27,7 @@ const signup = () => {
     // console.log(newuser)
     // return
     await axios
-      .post(`${import.meta.env.VITE_API_URL}/signup`,data)
+      .post(apiUrl('/signup'), data)
       .then((response) => {
         console.log(response.data);
         alert(response.data.message)
@@ -61,7 +62,7 @@ const signup = () => {
   }
   
   setisoptsending(true)
-    let response = await fetch("http://localhost:3000/send-otp",{
+    let response = await fetch(apiUrl('/send-otp'), {
       method:"POST",
     headers : {
       'Content-Type':'application/json'

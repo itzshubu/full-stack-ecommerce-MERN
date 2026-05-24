@@ -74,7 +74,7 @@ const Testimonial = () => {
             {
                 breakpoint:640,
                 settings:{
-                     slidesToshow:1,
+                     slidesToShow:1,
                      slidesToScroll :1 ,
                 },
             },
@@ -82,7 +82,7 @@ const Testimonial = () => {
      }
 
   return (
-         <div className='py-5 container m-auto '> 
+         <div className='py-10 container m-auto bg-gray-50 dark:bg-gray-950'> 
             <div className='container m-auto'>
                <div className='text-center  mb-10 max-w-[600px] mx-auto  '> 
                <p className='text-lg textmainColor '> What our customers are saying</p>

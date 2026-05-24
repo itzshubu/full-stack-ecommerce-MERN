@@ -1,211 +1,127 @@
-import React, { useState } from "react";
+import React from "react";
 import Darkbtn from "./darkbtn";
 import Icons from "./uiverse/icons";
-import Dropdown from "../components/uiverse/dropdown";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { FaCaretDown } from "react-icons/fa";
 import { BiCategoryAlt } from "react-icons/bi";
 import { MdOutlineExplore } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
-import { useDispatch } from "react-redux";
-import {logout} from "../Store/Slices/Authslice"
+import LogoutConfirmModal from "./LogoutConfirmModal";
+import { useLogoutConfirm } from "../hooks/useLogoutConfirm";
+import SearchBar from "./SearchBar";
+
+const navClass = ({ isActive }) =>
+  isActive ? "nav-link nav-link-active" : "nav-link";
+
+const dropdownClass = ({ isActive }) =>
+  isActive ? "nav-dropdown-link nav-dropdown-link-active" : "nav-dropdown-link";
 
 const Navbar = () => {
-  let Navigate = useNavigate()
-  let [input1 , setInput1]= useState('')
-  const Dispatch = useDispatch()
-   
-  function logoutt(){
-    // window.location.reload()
-    localStorage.clear()
-    console.log('helo')
-    Dispatch(logout())
-    setTimeout(() => {
-      Navigate('/')
-    }, 1000);
+  const location = useLocation();
+  const {
+    showLogoutModal,
+    isLoggingOut,
+    openLogoutConfirm,
+    closeLogoutConfirm,
+    confirmLogout,
+  } = useLogoutConfirm();
 
-  }
+  const isCategoriesActive = location.pathname.startsWith("/categories");
+  const isGroceryActive =
+    location.pathname.startsWith("/grocery") ||
+    location.pathname === "/fruits" ||
+    location.pathname === "/vegetables";
 
   return (
-    <>
-      <div className="sticky top-0 flex px-7 py-3  justify-between items-center mainColor">
-        <div className="flex gap-2 font-bold text-2xl">
-          <img
-            className="w-[40px] h-auto"
-            src="https://shopsy-tcj.netlify.app/assets/logo-Jm4BVSCI.png"
-            alt=""
-          />
+    <header className="sticky top-0 z-[200] overflow-visible isolate max-md:mb-4">
+      <LogoutConfirmModal
+        open={showLogoutModal}
+        loading={isLoggingOut}
+        onCancel={closeLogoutConfirm}
+        onConfirm={confirmLogout}
+      />
+      <div className="flex px-4 sm:px-7 py-3 justify-between items-center gap-3 mainColor text-white">
+        <NavLink to="/" className="flex gap-2 font-bold text-xl sm:text-2xl items-center text-white hover:opacity-90 shrink-0">
+          <img className="w-[40px] h-auto bg-white rounded-full p-1" src="/vite.svg" alt="Shopz logo" />
           Shopz
+        </NavLink>
+        <div className="hidden md:flex flex-1 max-w-lg mx-2">
+          <SearchBar className="w-full shadow-sm" />
         </div>
-        <div className="flex items-center gap-3 text-lg">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-[15px] text-lg shrink-0">
           <div className="hidden sm:block">
-          <Icons />
+            <Icons />
           </div>
           <Darkbtn />
-          <IoMdLogOut className="text-[30px] cursor-pointer" onClick={logoutt} />
-        </div>
-      </div>
-      {/* input search for mobile */}
-      <div className="bg-blue-200 dark:bg-black  w-full flex gap-2 justify-center sm:hidden  p-2">
-        <div className="flex p-2 items-center gap-2 justify-center border bg-white dark:bg-black border-black dark:border-white rounded-full">
-          <FaSearch onClick={()=>Navigate(`/search/${input1}`)} className="font-bold text-xl" />{" "}
-          <input
-            type="text"
-            placeholder="Search" 
-            value={input1}
-            onChange={(e)=>setInput1(e.target.value)}
-            onKeyDown={(e)=>e.key=="Enter"?Navigate(`/search/${input1}`):""}
-            className="outline-none bg-inherit border-none w-[200px]"
+          <IoMdLogOut
+            className="text-2xl sm:text-[26px] cursor-pointer hover:scale-110 transition-transform"
+            onClick={openLogoutConfirm}
+            title="Logout"
           />
         </div>
       </div>
-      <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200">
-        <ul className="flex items-center gap-4 sm:gap-8 justify-center font-medium text-base p-2">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? "Active menu-item" : "menu-item"
-            }
-          >
-            <IoHomeOutline /> Home
-          </NavLink>
-          <NavLink
-            to="Explore"
-            className={({ isActive }) =>
-              isActive ? "Active menu-item" : "menu-item"
-            }
-          >
-            <MdOutlineExplore /> Explore
-          </NavLink>
-          <NavLink
-            onClick={(e)=>e.preventDefault()}
-            className={({ isActive }) =>
-              isActive ? " menu-item group" : "menu-item group"
-            }
-          >
-            <BiCategoryAlt /> Categories
-            <ul className="dark:bg-black rounded-md text-black dark:text-white transition-all  duration-500 absolute  top-[20px]  w-[150%] opacity-0 invisible bg-slate-100 left-0 group-hover:visible group-hover:opacity-100 group-hover:top-[30px] ">
-              <li className="flex p-2 hover:bg-gray-400">
-                <NavLink
-                  to="categories/all"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item "
-                      : "menu-item "
-                  }
-                >
-                  All
-                </NavLink>
-              </li>
-              <li className="flex p-2 hover:bg-gray-400">
-                <NavLink
-                  to="categories/menscloths"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item "
-                      : "menu-item "
-                  }
-                >
-                  Men's Cloths
-                </NavLink>
-              </li>
-              <li className="flex p-2 hover:bg-gray-400">
-                <NavLink
-                  to="categories/womenscloths"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item "
-                      : "menu-item "
-                  }
-                >
-                  Women's Cloths
-                </NavLink>
-              </li>
-              <li className="flex p-2 hover:bg-gray-400">
-                <NavLink
-                  to="categories/electronics"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item "
-                      : "menu-item "
-                  }
-                >
-                  Electronics
-                </NavLink>
-              </li>
-              <li className="flex p-2 hover:bg-gray-400">
-                <NavLink
-                  to="categories/jewelery"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item "
-                      : "menu-item "
-                  }
-                >
-                  Jewelery
-                </NavLink>
+
+      {/* Mobile / tablet search */}
+      <div className="bg-blue-100 dark:bg-gray-900 w-full flex justify-center md:hidden px-3 py-2 border-b border-blue-200 dark:border-gray-800">
+        <SearchBar className="w-full max-w-lg shadow-sm" />
+      </div>
+
+      <nav className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative overflow-visible max-md:pb-3">
+        <ul className="flex items-center gap-4 sm:gap-8 justify-center font-medium text-base px-2 pt-2 pb-3 sm:pb-2 flex-wrap overflow-visible">
+          <li>
+            <NavLink to="/" end className={navClass}>
+              <IoHomeOutline /> Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/explore" className={navClass}>
+              <MdOutlineExplore /> Explore
+            </NavLink>
+          </li>
+          {/* Categories dropdown */}
+          <li className="relative group">
+            <span
+              className={`nav-link cursor-pointer ${
+                isCategoriesActive ? "nav-link-active" : ""
+              }`}
+            >
+              <BiCategoryAlt /> Categories <FaCaretDown className="text-xs inline" />
+            </span>
+            <ul className="absolute left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[250] min-w-[180px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
+              <li className="bg-white dark:bg-gray-900 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 py-1 pointer-events-auto">
+                <NavLink to="/categories/all" className={dropdownClass}>All</NavLink>
+                <NavLink to="/categories/menscloths" className={dropdownClass}>Men&apos;s Cloths</NavLink>
+                <NavLink to="/categories/womenscloths" className={dropdownClass}>Women&apos;s Cloths</NavLink>
+                <NavLink to="/categories/electronics" className={dropdownClass}>Electronics</NavLink>
+                <NavLink to="/categories/jewelery" className={dropdownClass}>Jewelery</NavLink>
               </li>
             </ul>
-          </NavLink>
-          <li className="group relative cursor-pointer">
-            <div className="flex items-center gap-[2px] py-2 ">
-              Grocery
-              <span>
-                <FaCaretDown className="transition-all duration-200  group-hover:rotate-180" />
-              </span>
-            </div>
-            <div className="dark:bg-black rounded-md text-black dark:text-white absolute z-[9999] hidden  group-hover:block w-[150px] rounded-md bg-white p-2 text-black shadow-md ">
-              <ul className="flex flex-col items-start">
-                <NavLink
-                  to="/grocery/wheat"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item"
-                      : "menu-item "
-                  }
-                >
-                  {" "}
-                  <li className="inline-block w-full rounded-md p-2 hover:bg-primary/20">
-                    {" "}
-                    Wheat
-                  </li>
-                </NavLink>
-                <NavLink
-                  to="/grocery/rice"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item"
-                      : "menu-item "
-                  }
-                >
-                  <li className="inline-block w-full rounded-md p-2 hover:bg-primary/20">
-                    {" "}
-                    Rice
-                  </li>
-                </NavLink>
-                <NavLink
-                  to="/grocery/oil"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "Active menu-item"
-                      : "menu-item "
-                  }
-                >
-                  {" "}
-                  <li className="inline-block w-full rounded-md p-2 hover:bg-primary/20">
-                    {" "}
-                    Oil
-                  </li>
-                </NavLink>
-              </ul>
-            </div>
+          </li>
+
+          {/* Grocery dropdown */}
+          <li className="relative group">
+            <span
+              className={`nav-link cursor-pointer ${
+                isGroceryActive ? "nav-link-active" : ""
+              }`}
+            >
+              Grocery <FaCaretDown className="text-xs inline" />
+            </span>
+            <ul className="absolute left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[250] min-w-[200px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
+              <li className="bg-white dark:bg-gray-900 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 py-1 pointer-events-auto">
+                <NavLink to="/grocery/all" className={dropdownClass}>All Grocery</NavLink>
+                <NavLink to="/grocery/wheat" className={dropdownClass}>Wheat & Grains</NavLink>
+                <NavLink to="/grocery/rice" className={dropdownClass}>Rice</NavLink>
+                <NavLink to="/grocery/oil" className={dropdownClass}>Cooking Oil</NavLink>
+                <NavLink to="/fruits" className={dropdownClass}>Fruits</NavLink>
+                <NavLink to="/vegetables" className={dropdownClass}>Vegetables</NavLink>
+              </li>
+            </ul>
           </li>
         </ul>
-      </div>
-    </>
+      </nav>
+    </header>
   );
 };
 

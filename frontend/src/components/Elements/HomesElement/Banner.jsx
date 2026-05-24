@@ -1,15 +1,18 @@
 import React from 'react'
+import { amazon } from '../../../config/images.js'
 import { GrSecure } from "react-icons/gr";
 import { FaShippingFast } from "react-icons/fa";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { BiSolidOffer } from "react-icons/bi";
 const Banner = () => {
   return (
-    <div className='min-h-[550px] flex justify-center item-center py-5 sm:py-0 '>
-         <div className='container'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 items-center mt-20'>
-                 <div>
-                     <img src='https://shopsy-tcj.netlify.app/assets/women2-wroTMLvf.jpg' alt='' className='max-w-[400px] h-[350px] w-full mx-auto drop-shadow-[-10px_10px_12px_rgba(0,0,0,1) ] rounded-lg object-cover '></img>
+    <div className='min-h-[550px] flex justify-center items-center py-10 bg-gray-50 dark:bg-gray-950'>
+         <div className='container px-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 items-center mt-10'>
+                 <div className='flex justify-center'>
+                     <div className='home-img-frame w-full max-w-[400px] aspect-[4/5]'>
+                     <img src={amazon.womensMaxi} alt='Winter sale' className='w-full h-full object-contain p-2 drop-shadow-lg rounded-lg'></img>
+                     </div>
                  </div> 
                  {/* text dec  */}
                    <div className='flex flex-col justify-center gap-6 sm:pt-0 '>

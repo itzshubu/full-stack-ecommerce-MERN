@@ -10,6 +10,7 @@ const ProductSchema = new mongoose.Schema({
   rating: { type: Number, min: 0, max: 5 },
   price: { type: Number,},
   description: { type: String,},
+  featured: { type: Boolean, default: false },
 });
 
 const Product = mongoose.model("ProductAll", ProductSchema);

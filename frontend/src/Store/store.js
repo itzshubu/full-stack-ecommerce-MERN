@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { fetchProducts } from './Slices/productsSlice'
+import { checkAuth } from './Slices/Authslice'
 import productReducer from "./Slices/productsSlice"
 import cartReducer  from "./Slices/CartSlice"
 import FavReducer  from "./Slices/FavSlice"
@@ -15,4 +15,8 @@ export const storee = configureStore({
   },
 })
 
-storee.dispatch(fetchProducts())
+// Migrate away from localStorage auth (now httpOnly cookie)
+localStorage.removeItem("token");
+localStorage.removeItem("user");
+
+storee.dispatch(checkAuth());

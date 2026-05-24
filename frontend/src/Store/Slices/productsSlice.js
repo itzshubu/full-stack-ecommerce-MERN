@@ -1,10 +1,11 @@
 import { createSlice ,createAsyncThunk  } from '@reduxjs/toolkit'
+import { apiUrl } from '../../config/api.js'
 
 // 🔹 Define an async thunk for fetching API data
 export const fetchProducts = createAsyncThunk(
       "",
     async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/products`);
+      const response = await fetch(apiUrl('/products'), { credentials: 'include' });
       return await response.json();
     }
   );

@@ -1,27 +1,25 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Producttemp from "../../producttemp"
+import ProductGrid from "../../ProductGrid"
 
 const Jewelery = () => {
 
    let {products} = useSelector((data)=>{return data.MyProducts })
        console.log(products)
 
-  let Jewelry = products.filter((item)=>{
-         return item.main_category == "Jewelry"
+  let jewelryProducts = products.filter((item) => {
+    return item.main_category === "Jewelry"
   })
 
-
   return (
-    <div>
-      <h2 className='text-center font-bold text-2xl'>Jewelery</h2>
-     <div className='flex gap-4 justify-center flex-wrap my-4'>
-           {
-                Jewelry.map((item)=>{
-                  return <Producttemp item={item}/>
-                })
-           }
-     </div>
+    <div className='my-5'>
+      <h2 className='my-3 text-2xl text-center'>Jewelery</h2>
+     <ProductGrid className="my-4">
+        {jewelryProducts.map((item) => (
+          <Producttemp key={item.productId} item={item} />
+        ))}
+     </ProductGrid>
     </div>
   )
 }
