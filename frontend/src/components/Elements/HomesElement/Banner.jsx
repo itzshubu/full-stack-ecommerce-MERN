@@ -6,9 +6,9 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 import { BiSolidOffer } from "react-icons/bi";
 const Banner = () => {
   return (
-    <div className='min-h-[550px] flex justify-center items-center py-10 bg-gray-50 dark:bg-gray-950'>
+    <div className='min-h-0 sm:min-h-[550px] flex justify-center items-center py-6 sm:py-10 bg-gray-50 dark:bg-gray-950'>
          <div className='container px-4'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 items-center mt-10'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 items-center mt-2 sm:mt-10'>
                  <div className='flex justify-center'>
                      <div className='home-img-frame w-full max-w-[400px] aspect-[4/5]'>
                      <img src={amazon.womensMaxi} alt='Winter sale' className='w-full h-full object-contain p-2 drop-shadow-lg rounded-lg'></img>

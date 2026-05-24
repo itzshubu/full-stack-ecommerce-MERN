@@ -82,11 +82,11 @@ const Testimonial = () => {
      }
 
   return (
-         <div className='py-10 container m-auto bg-gray-50 dark:bg-gray-950'> 
+         <div className='py-6 sm:py-10 container m-auto bg-gray-50 dark:bg-gray-950'> 
             <div className='container m-auto'>
-               <div className='text-center  mb-10 max-w-[600px] mx-auto  '> 
-               <p className='text-lg textmainColor '> What our customers are saying</p>
-               <h1 className='text-3xl font-bold my-3 '>Testimonials</h1>
+               <div className='text-center mb-4 sm:mb-10 max-w-[600px] mx-auto'> 
+               <p className='text-sm sm:text-lg textmainColor'> What our customers are saying</p>
+               <h1 className='text-2xl sm:text-3xl font-bold my-1 sm:my-3'>Testimonials</h1>
                <p className='text-xs text-gray-400'>Lorem ipsum dolor us in deleniti sed natus voluptates dolorum sapiente, fuga odit accusamus placeat?</p>
            </div>
            {/* cards  */}

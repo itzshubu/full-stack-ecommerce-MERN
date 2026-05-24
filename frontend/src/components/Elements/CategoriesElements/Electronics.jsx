@@ -11,8 +11,8 @@ const Electronics = () => {
       return item.main_category === "Electronics"
     })
   return (
-    <div className='my-5'>
-      <h2 className='my-3 text-2xl text-center'>Electronics</h2>
+    <div className='my-2 sm:my-5 px-1 sm:px-0'>
+      <h2 className='my-1 sm:my-3 text-lg sm:text-2xl text-center'>Electronics</h2>
       <ProductGrid>
         {electronicsProducts.map((item) => (
           <Producttemp key={item.productId} item={item} />

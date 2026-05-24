@@ -94,13 +94,11 @@ const Hero = () => {
 
   return (
 
-    <div className="relative overflow-hidden min-h-[520px] sm:min-h-[600px] bg-gray-100 flex justify-center items-center dark:bg-gray-900 dark:text-white duration-200 z-0 max-md:mt-1">
+    <div className="relative overflow-hidden min-h-0 max-md:py-3 sm:min-h-[600px] bg-gray-100 flex justify-center items-center dark:bg-gray-900 dark:text-white duration-200 z-0">
 
-      <div className="h-[500px] w-[500px] mainColor absolute -top-1/3 -right-20 rounded-3xl rotate-45 opacity-90 pointer-events-none" />
+      <div className="h-[280px] w-[280px] sm:h-[500px] sm:w-[500px] mainColor absolute -top-1/4 -right-16 sm:-top-1/3 sm:-right-20 rounded-3xl rotate-45 opacity-90 pointer-events-none" />
 
-
-
-      <div className="container pb-10 sm:pb-6 relative z-10 hero-slider">
+      <div className="container pb-4 sm:pb-6 pt-1 sm:pt-0 relative z-10 hero-slider">
 
         <Slider {...settings}>
 
@@ -110,11 +108,11 @@ const Hero = () => {
 
               <NavLink to={item.route}>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center px-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6 items-center px-2 py-0 sm:py-2">
 
-                  <div className="flex flex-col justify-center gap-4 pt-8 sm:pt-0 text-center sm:text-left order-2 sm:order-1">
+                  <div className="flex flex-col justify-center gap-2 sm:gap-4 pt-2 sm:pt-0 text-center sm:text-left order-2 sm:order-1">
 
-                    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                    <h1 className="text-xl sm:text-5xl lg:text-6xl font-bold leading-snug sm:leading-tight">
 
                       {item.title}
 
@@ -142,7 +140,7 @@ const Hero = () => {
 
                   <div className="order-1 sm:order-2 flex justify-center">
 
-                    <div className="home-img-frame w-full max-w-[340px] sm:max-w-[400px] aspect-square">
+                    <div className="home-img-frame w-full max-w-[240px] sm:max-w-[400px] aspect-square mx-auto">
 
                       <img
 

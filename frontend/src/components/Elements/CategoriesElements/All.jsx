@@ -7,8 +7,8 @@ const All = () => {
   let {products} = useSelector((data)=>{return data.MyProducts})
   console.log(products)
   return (
-    <div className='my-5'>
-      <h2 className='my-3 text-2xl text-center'>All Products</h2>
+    <div className='my-2 sm:my-5 px-1 sm:px-0'>
+      <h2 className='my-1 sm:my-3 text-lg sm:text-2xl text-center'>All Products</h2>
       <ProductGrid>
         {products.map((item) => (
           <Producttemp key={item.productId} item={item} />

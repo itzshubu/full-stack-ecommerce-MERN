@@ -87,7 +87,7 @@ const Explore = () => {
   }, [products, activeFilter]);
 
   return (
-    <div className="min-h-[70vh] bg-gray-50 dark:bg-gray-950 pb-12">
+    <div className="min-h-0 sm:min-h-[70vh] bg-gray-50 dark:bg-gray-950 pb-6 sm:pb-12">
       {/* Breadcrumb */}
       <div className="flex gap-2 text-gray-500 dark:text-gray-400 p-4 items-center text-lg">
         <NavLink to="/" className="hover:text-blue-500 transition-colors">
@@ -100,7 +100,7 @@ const Explore = () => {
       </div>
 
       {/* Hero */}
-      <section className="container mx-auto px-4 mb-10">
+      <section className="container mx-auto px-4 mb-4 sm:mb-10">
         <div className="rounded-2xl mainColor text-white p-8 sm:p-12 relative overflow-hidden">
           <div className="absolute -right-10 -top-10 w-48 h-48 bg-white/10 rounded-full" />
           <div className="absolute -left-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full" />

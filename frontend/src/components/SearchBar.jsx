@@ -42,7 +42,7 @@ const SearchBar = ({ variant = "default", className = "" }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        className={`outline-none bg-transparent border-none w-full dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 ${
+        className={`outline-none bg-transparent border-none w-full text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 ${
           isCompact ? "text-sm" : "text-base"
         }`}
       />

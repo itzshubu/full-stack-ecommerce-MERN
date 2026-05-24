@@ -13,8 +13,8 @@ const CategoryProductList = ({ title, mainCategory, subcategory }) => {
   })
 
   return (
-    <div className="my-5 px-4">
-      <h2 className="my-3 text-2xl text-center font-bold">{title}</h2>
+    <div className="my-2 sm:my-5 px-3 sm:px-4">
+      <h2 className="my-1 sm:my-3 text-lg sm:text-2xl text-center font-bold">{title}</h2>
 
       {status === 'loading' && (
         <p className="text-center text-gray-500">Loading products...</p>

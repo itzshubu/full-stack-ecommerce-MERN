@@ -7,6 +7,7 @@ import { addAuth } from "../Store/Slices/Authslice";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 import LoadingButton from "../components/ui/LoadingButton";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Login = () => {
   const {
@@ -38,6 +39,7 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-100 dark:bg-gray-950 px-4 py-10 transition-colors duration-300">
+      <ScrollToTop />
       <Toaster position="top-center" />
       <div className="absolute -top-24 -right-24 h-[420px] w-[420px] rounded-3xl rotate-45 mainColor opacity-20" />
       <div className="absolute -bottom-32 -left-24 h-[360px] w-[360px] rounded-3xl rotate-12 bg-blue-300 dark:bg-blue-900 opacity-20" />

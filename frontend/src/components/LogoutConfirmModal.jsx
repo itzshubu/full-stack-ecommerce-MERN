@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { MdOutlineLogout } from "react-icons/md";
 import LoadingButton from "./ui/LoadingButton";
 
 const LogoutConfirmModal = ({ open, onCancel, onConfirm, loading = false }) => {
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div
       className="confirm-overlay"
       onClick={onCancel}
@@ -54,7 +64,8 @@ const LogoutConfirmModal = ({ open, onCancel, onConfirm, loading = false }) => {
           </LoadingButton>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

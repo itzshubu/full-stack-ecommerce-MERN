@@ -2,10 +2,8 @@ import React, { useMemo } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IoHome } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
 import Producttemp from "./producttemp";
 import ProductGrid from "./ProductGrid";
-import SearchBar from "./SearchBar";
 import { decodeSearchQuery, filterProductsBySearch } from "../utils/search";
 
 const Searchcompo = () => {
@@ -19,8 +17,8 @@ const Searchcompo = () => {
   );
 
   return (
-    <div className="min-h-[60vh] bg-gray-50 dark:bg-gray-950 pb-20">
-      <div className="flex flex-wrap gap-2 text-gray-500 dark:text-gray-400 px-4 py-4 items-center text-sm sm:text-base">
+    <div className="min-h-0 sm:min-h-[60vh] bg-gray-50 dark:bg-gray-950 pb-16 sm:pb-20">
+      <div className="flex flex-wrap gap-2 text-gray-500 dark:text-gray-400 px-3 sm:px-4 py-2 sm:py-4 items-center text-sm sm:text-base">
         <NavLink to="/" className="hover:text-blue-500 transition-colors">
           <IoHome className="text-xl" />
         </NavLink>
@@ -37,14 +35,6 @@ const Searchcompo = () => {
       </div>
 
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="auth-card mb-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <FaSearch className="textmainColor" />
-            Search Products
-          </h1>
-          <SearchBar className="max-w-xl" />
-        </div>
-
         {status === "loading" && (
           <p className="text-center text-gray-500 py-12">Loading products...</p>
         )}
@@ -52,7 +42,7 @@ const Searchcompo = () => {
         {status !== "loading" && !query && (
           <div className="auth-card text-center py-12">
             <p className="text-gray-600 dark:text-gray-300">
-              Type a product name, category, or keyword above to search.
+              Use the search bar in the header to find products.
             </p>
           </div>
         )}
